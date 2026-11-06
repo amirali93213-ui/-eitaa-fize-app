@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>جعبه‌ابزار تخصصی فیزیک و ریاضی</title>
-  <!-- اسکریپت رسمی وب‌اپ ایتا -->
   <script src="https://eitaa.com/js/webapp.js"></script>
   <style>
     :root {
@@ -14,9 +13,8 @@
       --card-bg: #ffffff;
       --text: #0f172a;
       --text-muted: #64748b;
-      --border: #e2e8f0;
+      --border: #cbd5e1;
       --accent: #0ea5e9;
-      --success: #10b981;
     }
     * {
       box-sizing: border-box;
@@ -29,37 +27,35 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding-bottom: 50px;
+      padding-bottom: 60px;
     }
-    /* هدر */
     header {
       background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
       color: #fff;
       text-align: center;
       padding: 24px 16px;
       box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      margin-bottom: 16px;
     }
     header h1 {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 800;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     header p {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       opacity: 0.9;
     }
-    /* کانتینر ابزارها */
     .container {
-      max-width: 540px;
-      margin: 16px auto;
+      max-width: 500px;
+      margin: 0 auto;
       padding: 0 12px;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
-    /* تب‌ها یا کارت‌های تاشو */
     .card {
       background: var(--card-bg);
       border-radius: 16px;
@@ -68,48 +64,39 @@
       border: 1px solid var(--border);
     }
     .card-title {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--primary-dark);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
       border-bottom: 2px dashed #f1f5f9;
       padding-bottom: 8px;
     }
     .card-desc {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       margin-bottom: 12px;
     }
-    .input-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    .input-group.full {
-      grid-template-columns: 1fr;
-    }
+    /* فیلدها کاملاً تک‌ستونه برای جلوگیری از بیرون‌زدگی */
     .field {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
+      margin-bottom: 12px;
     }
     .field label {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-muted);
     }
     .field input, .field select {
+      width: 100%;
       border: 1.5px solid var(--border);
       border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 0.9rem;
+      padding: 11px 12px;
+      font-size: 0.95rem;
       outline: none;
-      transition: all 0.2s;
       background: #fafafa;
+      color: var(--text);
     }
     .field input:focus, .field select:focus {
       border-color: var(--accent);
@@ -122,45 +109,36 @@
       color: #fff;
       border: none;
       border-radius: 10px;
-      padding: 11px;
+      padding: 12px;
       font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       transition: 0.2s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
+      margin-top: 4px;
     }
     button.calc-btn:active {
-      transform: scale(0.98);
       background: var(--primary-dark);
     }
     .result-box {
       margin-top: 12px;
-      padding: 10px 14px;
+      padding: 12px;
       background: #f0fdf4;
       border: 1px solid #bbf7d0;
       border-radius: 10px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #166534;
       display: none;
       word-break: break-all;
     }
     .result-box.active {
       display: block;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>⚡جعبه‌ابزار جامع فیزیک و ریاضی </h1>
+    <h1>⚡ جعبه‌ابزار جامع فیزیک و ریاضی دهم</h1>
     <p>محاسبات سریع فرمول‌ها، شاره‌ها، تبدیل واحد و نظریه اعداد</p>
   </header>
 
@@ -170,17 +148,15 @@
     <div class="card">
       <div class="card-title">⚖️ محاسبه‌گر چگالی (ρ = m / V)</div>
       <div class="card-desc">دو مقدار را وارد کرده و پارامتر مجهول را خالی بگذارید:</div>
-      <div class="input-group">
-        <div class="field">
-          <label>جرم m (کیلوگرم):</label>
-          <input type="number" id="rho_m" placeholder="خالی برای مجهول" />
-        </div>
-        <div class="field">
-          <label>حجم V (متر مکعب):</label>
-          <input type="number" id="rho_v" placeholder="خالی برای مجهول" />
-        </div>
+      <div class="field">
+        <label>جرم m (کیلوگرم):</label>
+        <input type="number" id="rho_m" placeholder="خالی برای مجهول" />
       </div>
-      <div class="field" style="margin-bottom: 12px;">
+      <div class="field">
+        <label>حجم V (متر مکعب):</label>
+        <input type="number" id="rho_v" placeholder="خالی برای مجهول" />
+      </div>
+      <div class="field">
         <label>چگالی ρ (kg/m³):</label>
         <input type="number" id="rho_val" placeholder="خالی برای مجهول" />
       </div>
@@ -192,25 +168,21 @@
     <div class="card">
       <div class="card-title">🌊 فشار در شاره‌ها (P = P₀ + ρgh)</div>
       <div class="card-desc">محاسبه فشار ستون مایع و فشار کل در عمق مایع:</div>
-      <div class="input-group">
-        <div class="field">
-          <label>عمق h (متر):</label>
-          <input type="number" id="p_h" placeholder="مثال: 2" />
-        </div>
-        <div class="field">
-          <label>چگالی ρ (kg/m³):</label>
-          <input type="number" id="p_rho" placeholder="آب = 1000" />
-        </div>
+      <div class="field">
+        <label>عمق h (متر):</label>
+        <input type="number" id="p_h" placeholder="مثال: 2" />
       </div>
-      <div class="input-group">
-        <div class="field">
-          <label>شتاب گرانش g (m/s²):</label>
-          <input type="number" id="p_g" value="9.8" />
-        </div>
-        <div class="field">
-          <label>فشار هوا P₀ (پاسکال):</label>
-          <input type="number" id="p_0" value="100000" />
-        </div>
+      <div class="field">
+        <label>چگالی ρ (kg/m³):</label>
+        <input type="number" id="p_rho" placeholder="آب = 1000" />
+      </div>
+      <div class="field">
+        <label>شتاب گرانش g (m/s²):</label>
+        <input type="number" id="p_g" value="9.8" />
+      </div>
+      <div class="field">
+        <label>فشار هوا P₀ (پاسکال):</label>
+        <input type="number" id="p_0" value="100000" />
       </div>
       <button class="calc-btn" onclick="calcFluidPressure()">محاسبه فشار</button>
       <div class="result-box" id="res_fluid"></div>
@@ -219,15 +191,13 @@
     <!-- 3. فشار جامدات -->
     <div class="card">
       <div class="card-title">📦 فشار جامدات (P = F / A)</div>
-      <div class="input-group">
-        <div class="field">
-          <label>نیرو یا وزن F (نیوتون):</label>
-          <input type="number" id="press_f" placeholder="نیرو" />
-        </div>
-        <div class="field">
-          <label>مساحت تماس A (مترمربع):</label>
-          <input type="number" id="press_a" placeholder="مساحت" />
-        </div>
+      <div class="field">
+        <label>نیرو یا وزن F (نیوتون):</label>
+        <input type="number" id="press_f" placeholder="نیرو" />
+      </div>
+      <div class="field">
+        <label>مساحت تماس A (مترمربع):</label>
+        <input type="number" id="press_a" placeholder="مساحت" />
       </div>
       <button class="calc-btn" onclick="calcSolidPressure()">محاسبه فشار</button>
       <div class="result-box" id="res_solid_press"></div>
@@ -235,8 +205,8 @@
 
     <!-- 4. نماد علمی -->
     <div class="card">
-      <div class="card-title">🔬 تبدیل به نماد علمی (Scientific Notation)</div>
-      <div class="field" style="margin-bottom: 12px;">
+      <div class="card-title">🔬 نماد علمی (Scientific Notation)</div>
+      <div class="field">
         <label>یک عدد اعشاری یا بزرگ وارد کنید:</label>
         <input type="text" id="sci_input" placeholder="مثال: 0.0000456 یا 3400000" />
       </div>
@@ -247,15 +217,13 @@
     <!-- 5. ب.م.م و ک.م.م -->
     <div class="card">
       <div class="card-title">➗ ب.م.م و ک.م.م (GCD & LCM)</div>
-      <div class="input-group">
-        <div class="field">
-          <label>عدد اول (A):</label>
-          <input type="number" id="gcd_a" placeholder="مثال: 24" />
-        </div>
-        <div class="field">
-          <label>عدد دوم (B):</label>
-          <input type="number" id="gcd_b" placeholder="مثال: 36" />
-        </div>
+      <div class="field">
+        <label>عدد اول (A):</label>
+        <input type="number" id="gcd_a" placeholder="مثال: 24" />
+      </div>
+      <div class="field">
+        <label>عدد دوم (B):</label>
+        <input type="number" id="gcd_b" placeholder="مثال: 36" />
       </div>
       <button class="calc-btn" onclick="calcGCDLCM()">یافتن ب.م.م و ک.م.م</button>
       <div class="result-box" id="res_gcd"></div>
@@ -264,26 +232,24 @@
     <!-- 6. تبدیل واحدهای کلیدی -->
     <div class="card">
       <div class="card-title">🔄 تبدیل واحدهای پرکاربرد</div>
-      <div class="field" style="margin-bottom: 10px;">
+      <div class="field">
         <label>نوع تبدیل واحد:</label>
         <select id="unit_type" onchange="updateUnitOptions()">
-          <option value="length">طول (متر، سانتی‌متر، میلی‌متر، نانومتر و...)</option>
+          <option value="length">طول (متر، سانتی‌متر، میلی‌متر و...)</option>
           <option value="mass">جرم (کیلوگرم، گرم، میلی‌گرم، تن)</option>
           <option value="density">چگالی (g/cm³ به kg/m³)</option>
           <option value="pressure">فشار (پاسکال، اتمسفر، بار، mmHg)</option>
         </select>
       </div>
-      <div class="input-group">
-        <div class="field">
-          <label>مقدار ورودی:</label>
-          <input type="number" id="unit_val" placeholder="مقدار عددی" />
-        </div>
-        <div class="field">
-          <label>از واحد:</label>
-          <select id="unit_from"></select>
-        </div>
+      <div class="field">
+        <label>مقدار ورودی:</label>
+        <input type="number" id="unit_val" placeholder="مقدار عددی" />
       </div>
-      <div class="field" style="margin-bottom: 12px;">
+      <div class="field">
+        <label>از واحد:</label>
+        <select id="unit_from"></select>
+      </div>
+      <div class="field">
         <label>به واحد:</label>
         <select id="unit_to"></select>
       </div>
@@ -294,19 +260,17 @@
     <!-- 7. قانون اهم -->
     <div class="card">
       <div class="card-title">⚡ قانون اهم (V = I × R)</div>
-      <div class="input-group">
-        <div class="field">
-          <label>ولتاژ V (ولت):</label>
-          <input type="number" id="ohm_v" placeholder="مجهول را خالی بگذارید" />
-        </div>
-        <div class="field">
-          <label>جریان I (آمپر):</label>
-          <input type="number" id="ohm_i" placeholder="مجهول را خالی بگذارید" />
-        </div>
+      <div class="field">
+        <label>ولتاژ V (ولت):</label>
+        <input type="number" id="ohm_v" placeholder="خالی برای مجهول" />
       </div>
-      <div class="field" style="margin-bottom: 12px;">
+      <div class="field">
+        <label>جریان I (آمپر):</label>
+        <input type="number" id="ohm_i" placeholder="خالی برای مجهول" />
+      </div>
+      <div class="field">
         <label>مقاومت R (اهم):</label>
-        <input type="number" id="ohm_r" placeholder="مجهول را خالی بگذارید" />
+        <input type="number" id="ohm_r" placeholder="خالی برای مجهول" />
       </div>
       <button class="calc-btn" onclick="calcOhm()">محاسبه قانون اهم</button>
       <div class="result-box" id="res_ohm"></div>
@@ -315,13 +279,11 @@
   </div>
 
   <script>
-    // راه‌اندازی وب‌اپ ایتا
     if (window.Eitaa && window.Eitaa.ready) {
       window.Eitaa.ready();
       window.Eitaa.expand();
     }
 
-    // 1. چگالی
     function calcDensity() {
       const m = parseFloat(document.getElementById('rho_m').value);
       const v = parseFloat(document.getElementById('rho_v').value);
@@ -331,20 +293,19 @@
       if (!isNaN(m) && !isNaN(v) && isNaN(rho)) {
         if (v === 0) return alert('حجم نمی‌تواند صفر باشد.');
         const val = m / v;
-        res.innerHTML = `چگالی (ρ): <b>${val.toFixed(4)}</b> کیلوگرم بر متر مکعب (kg/m³)<br>معادل <b>${(val / 1000).toFixed(4)}</b> گرم بر سانتی‌متر مکعب (g/cm³)`;
+        res.innerHTML = `چگالی (ρ): <b>${val.toFixed(4)}</b> kg/m³<br>معادل: <b>${(val / 1000).toFixed(4)}</b> g/cm³`;
       } else if (!isNaN(rho) && !isNaN(v) && isNaN(m)) {
-        res.innerHTML = `جرم (m): <b>${(rho * v).toFixed(4)}</b> کیلوگرم (kg)`;
+        res.innerHTML = `جرم (m): <b>${(rho * v).toFixed(4)}</b> kg`;
       } else if (!isNaN(rho) && !isNaN(m) && isNaN(v)) {
         if (rho === 0) return alert('چگالی نمی‌تواند صفر باشد.');
-        res.innerHTML = `حجم (V): <b>${(m / rho).toFixed(6)}</b> متر مکعب (m³)`;
+        res.innerHTML = `حجم (V): <b>${(m / rho).toFixed(6)}</b> m³`;
       } else {
-        alert('لطفاً دقیقاً دو مقدار را وارد کرده و مقدار سوم را خالی بگذارید.');
+        alert('دقیقاً دو مقدار را وارد کرده و یکی را خالی بگذارید.');
         return;
       }
       res.classList.add('active');
     }
 
-    // 2. فشار شاره‌ها
     function calcFluidPressure() {
       const h = parseFloat(document.getElementById('p_h').value);
       const rho = parseFloat(document.getElementById('p_rho').value);
@@ -352,85 +313,47 @@
       const p0 = parseFloat(document.getElementById('p_0').value) || 0;
       const res = document.getElementById('res_fluid');
 
-      if (isNaN(h) || isNaN(rho)) return alert('لطفاً عمق و چگالی را وارد کنید.');
-      const p_gauge = rho * g * h; // فشار پیمانه‌ای
-      const p_total = p0 + p_gauge; // فشار کل
+      if (isNaN(h) || isNaN(rho)) return alert('عمق و چگالی را وارد کنید.');
+      const p_gauge = rho * g * h;
+      const p_total = p0 + p_gauge;
 
-      res.innerHTML = `
-        فشار ستون شاره (پیمانه‌ای): <b>${p_gauge.toLocaleString('fa-IR')}</b> پاسکال (Pa)<br>
-        فشار کل (مطلق): <b>${p_total.toLocaleString('fa-IR')}</b> پاسکال (Pa)<br>
-        معادل اتمسفر: <b>${(p_total / 101325).toFixed(3)}</b> atm
-      `;
+      res.innerHTML = `فشار پیمانه‌ای: <b>${p_gauge.toLocaleString('fa-IR')}</b> Pa<br>فشار کل: <b>${p_total.toLocaleString('fa-IR')}</b> Pa<br>معادل: <b>${(p_total / 101325).toFixed(3)}</b> atm`;
       res.classList.add('active');
     }
 
-    // 3. فشار جامدات
     function calcSolidPressure() {
       const f = parseFloat(document.getElementById('press_f').value);
       const a = parseFloat(document.getElementById('press_a').value);
       const res = document.getElementById('res_solid_press');
       if (isNaN(f) || isNaN(a) || a === 0) return alert('مقادیر معتبر وارد کنید.');
-      const p = f / a;
-      res.innerHTML = `فشار: <b>${p.toLocaleString('fa-IR')}</b> پاسکال (N/m²)`;
+      res.innerHTML = `فشار: <b>${(f / a).toLocaleString('fa-IR')}</b> Pa`;
       res.classList.add('active');
     }
 
-    // 4. نماد علمی
     function calcScientific() {
-      const raw = document.getElementById('sci_input').value.trim();
-      const num = parseFloat(raw);
+      const num = parseFloat(document.getElementById('sci_input').value);
       const res = document.getElementById('res_sci');
-      if (isNaN(num)) return alert('لطفاً یک عدد معتبر وارد کنید.');
-
-      const exp = num.toExponential();
-      const parts = exp.split('e');
-      const mantissa = parseFloat(parts[0]).toFixed(3);
-      const power = parseInt(parts[1]);
-
-      res.innerHTML = `نماد علمی استاندارد: <b dir="ltr">${mantissa} × 10<sup>${power}</sup></b>`;
+      if (isNaN(num)) return alert('عدد معتبر وارد کنید.');
+      const parts = num.toExponential().split('e');
+      res.innerHTML = `نماد علمی: <b dir="ltr">${parseFloat(parts[0]).toFixed(3)} × 10<sup>${parseInt(parts[1])}</sup></b>`;
       res.classList.add('active');
     }
 
-    // 5. ب.م.م و ک.م.م
     function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
     function calcGCDLCM() {
       const a = Math.abs(parseInt(document.getElementById('gcd_a').value));
       const b = Math.abs(parseInt(document.getElementById('gcd_b').value));
       const res = document.getElementById('res_gcd');
-      if (isNaN(a) || isNaN(b) || a === 0 || b === 0) return alert('اعداد صحیح بزرگتر از صفر وارد کنید.');
-
-      const g = gcd(a, b);
-      const l = (a * b) / g;
-      res.innerHTML = `بزرگترین مقسوم‌علیه مشترک (ب.م.م): <b>${g}</b><br>کوچکترین مضرب مشترک (ک.م.م): <b>${l}</b>`;
+      if (isNaN(a) || isNaN(b) || a === 0 || b === 0) return alert('اعداد معتبر وارد کنید.');
+      res.innerHTML = `ب.م.م: <b>${gcd(a, b)}</b><br>ک.م.م: <b>${(a * b) / gcd(a, b)}</b>`;
       res.classList.add('active');
     }
 
-    // 6. تبدیل واحدها
     const unitData = {
-      length: {
-        'متر (m)': 1,
-        'سانتی‌متر (cm)': 0.01,
-        'میلی‌متر (mm)': 0.001,
-        'میکرومتر (µm)': 1e-6,
-        'نانومتر (nm)': 1e-9,
-        'کیلومتر (km)': 1000
-      },
-      mass: {
-        'کیلوگرم (kg)': 1,
-        'گرم (g)': 0.001,
-        'میلی‌گرم (mg)': 1e-6,
-        'تن (ton)': 1000
-      },
-      density: {
-        'کیلوگرم بر متر مکعب (kg/m³)': 1,
-        'گرم بر سانتی‌متر مکعب (g/cm³)': 1000
-      },
-      pressure: {
-        'پاسکال (Pa)': 1,
-        'اتمسفر (atm)': 101325,
-        'بار (bar)': 100000,
-        'میلی‌متر جیوه (mmHg)': 133.322
-      }
+      length: {'متر (m)': 1, 'سانتی‌متر (cm)': 0.01, 'میلی‌متر (mm)': 0.001, 'نانومتر (nm)': 1e-9, 'کیلومتر (km)': 1000},
+      mass: {'کیلوگرم (kg)': 1, 'گرم (g)': 0.001, 'میلی‌گرم (mg)': 1e-6, 'تن (ton)': 1000},
+      density: {'کیلوگرم بر متر مکعب (kg/m³)': 1, 'گرم بر سانتی‌متر مکعب (g/cm³)': 1000},
+      pressure: {'پاسکال (Pa)': 1, 'اتمسفر (atm)': 101325, 'بار (bar)': 100000, 'میلی‌متر جیوه (mmHg)': 133.322}
     };
 
     function updateUnitOptions() {
@@ -438,8 +361,7 @@
       const units = Object.keys(unitData[type]);
       const fromSel = document.getElementById('unit_from');
       const toSel = document.getElementById('unit_to');
-      fromSel.innerHTML = '';
-      toSel.innerHTML = '';
+      fromSel.innerHTML = ''; toSel.innerHTML = '';
       units.forEach((u, i) => {
         fromSel.innerHTML += `<option value="${u}">${u}</option>`;
         toSel.innerHTML += `<option value="${u}" ${i === 1 ? 'selected' : ''}>${u}</option>`;
@@ -453,17 +375,12 @@
       const from = document.getElementById('unit_from').value;
       const to = document.getElementById('unit_to').value;
       const res = document.getElementById('res_unit');
-
-      if (isNaN(val)) return alert('لطفاً مقدار ورودی را مشخص کنید.');
-
-      const inBase = val * unitData[type][from];
-      const result = inBase / unitData[type][to];
-
-      res.innerHTML = `نتیجه تبدیل: <b>${result < 0.0001 || result > 10000 ? result.toExponential(4) : result.toFixed(4)}</b> ${to}`;
+      if (isNaN(val)) return alert('مقدار ورودی را مشخص کنید.');
+      const result = (val * unitData[type][from]) / unitData[type][to];
+      res.innerHTML = `نتیجه: <b>${result < 0.0001 || result > 10000 ? result.toExponential(4) : result.toFixed(4)}</b> ${to}`;
       res.classList.add('active');
     }
 
-    // 7. اهم
     function calcOhm() {
       const v = parseFloat(document.getElementById('ohm_v').value);
       const i = parseFloat(document.getElementById('ohm_i').value);
@@ -473,13 +390,13 @@
       if (!isNaN(i) && !isNaN(r) && isNaN(v)) {
         res.innerHTML = `ولتاژ (V): <b>${(i * r).toFixed(2)}</b> ولت`;
       } else if (!isNaN(v) && !isNaN(r) && isNaN(i)) {
-        if (r === 0) return alert('مقاومت نمی‌تواند صفر باشد.');
+        if (r === 0) return alert('مقاومت صفر است.');
         res.innerHTML = `جریان (I): <b>${(v / r).toFixed(3)}</b> آمپر`;
       } else if (!isNaN(v) && !isNaN(i) && isNaN(r)) {
-        if (i === 0) return alert('جریان نمی‌تواند صفر باشد.');
+        if (i === 0) return alert('جریان صفر است.');
         res.innerHTML = `مقاومت (R): <b>${(v / i).toFixed(2)}</b> اهم`;
       } else {
-        alert('لطفاً دقیقاً ۲ مقدار را پر کنید.');
+        alert('دقیقاً ۲ مقدار را پر کنید.');
         return;
       }
       res.classList.add('active');
