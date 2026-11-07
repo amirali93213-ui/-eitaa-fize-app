@@ -6,20 +6,51 @@
   <title>ماشین‌حساب مهندسی فیزیک و الکترونیک</title>
   <script src="https://developer.eitaa.com/eitaa-web-app.js"></script>
   <style>
+    /* ==================== THEME VARIABLES ==================== */
     :root {
-      --bg-color: var(--tg-theme-bg-color, #0f172a);
-      --card-bg: var(--tg-theme-secondary-bg-color, #1e293b);
-      --text-main: var(--tg-theme-text-color, #f8fafc);
-      --text-muted: var(--tg-theme-hint-color, #94a3b8);
-      --primary: var(--tg-theme-button-color, #38bdf8);
-      --primary-txt: var(--tg-theme-button-text-color, #0f172a);
-      --accent: #f59e0b;
-      --danger: #ef4444;
+      /* پیش‌فرض: تم روز مهندسی (Clean Crisp Light) */
+      --bg-color: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #0284c7;
+      --primary-txt: #ffffff;
+      --accent: #0369a1;
+      --danger: #e11d48;
+      --success: #059669;
+      --key-num: #ffffff;
+      --key-op: #e2e8f0;
+      --key-func-bg: #f8fafc;
+      --key-func-txt: #0284c7;
+      --key-border: #cbd5e1;
+      --display-bg: #e0f2fe;
+      --display-val: #0369a1;
+      --border: #cbd5e1;
+      --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --screen-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="dark"] {
+      /* تم شب مهندسی (دقیقاً همان رنگ‌های دارک اصلی شما) */
+      --bg-color: #090d16;
+      --card-bg: #131c31;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #0ea5e9;
+      --primary-txt: #0f172a;
+      --accent: #38bdf8;
+      --danger: #f43f5e;
       --success: #10b981;
-      --key-num: #334155;
-      --key-op: #475569;
-      --display-bg: #020617;
-      --border: #334155;
+      --key-num: #1e293b;
+      --key-op: #2b3a55;
+      --key-func-bg: #131c31;
+      --key-func-txt: #38bdf8;
+      --key-border: rgba(255, 255, 255, 0.04);
+      --display-bg: #030712;
+      --display-val: #38bdf8;
+      --border: #1e293b;
+      --shadow-card: none;
+      --screen-shadow: inset 0 2px 8px rgba(0,0,0,0.7);
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
@@ -28,51 +59,63 @@
       background-color: var(--bg-color); color: var(--text-main);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     .calc-container {
       max-width: 480px; margin: 0 auto; height: 100vh;
       display: flex; flex-direction: column; justify-content: space-between;
-      padding: 8px 10px calc(12px + env(safe-area-inset-bottom)) 10px;
+      padding: 10px 12px calc(14px + env(safe-area-inset-bottom)) 12px;
     }
 
-    /* نوار هدر و تب‌ها */
-    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-    .app-brand { font-size: 14px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 5px; }
+    /* هدر و تب‌ها */
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .app-brand { font-size: 14px; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+
+    .header-actions { display: flex; align-items: center; gap: 6px; }
+    .theme-btn {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 8px; width: 28px; height: 26px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer;
+      font-size: 12px; color: var(--text-main);
+    }
+    .theme-btn:active { transform: scale(0.92); }
 
     .tabs {
-      display: flex; gap: 4px; background: var(--display-bg);
-      padding: 3px; border-radius: 10px; border: 1px solid var(--border);
-      overflow-x: auto; scrollbar-width: none;
+      display: flex; gap: 5px; background: var(--display-bg);
+      padding: 4px; border-radius: 12px; border: 1px solid var(--border);
+      overflow-x: auto; scrollbar-width: none; margin-bottom: 8px;
     }
     .tabs::-webkit-scrollbar { display: none; }
     .tab-btn {
-      flex: 1; min-width: 70px; padding: 7px 4px; font-size: 12px; font-weight: 600;
-      background: transparent; color: var(--text-muted); border: none; border-radius: 7px;
+      flex: 1; min-width: 72px; padding: 8px 6px; font-size: 12px; font-weight: 600;
+      background: transparent; color: var(--text-muted); border: none; border-radius: 9px;
       cursor: pointer; text-align: center; white-space: nowrap; transition: 0.2s;
     }
     .tab-btn.active {
       background: var(--primary); color: var(--primary-txt);
-      box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+      box-shadow: 0 2px 10px rgba(14, 165, 233, 0.35);
     }
 
     /* نمایشگر دیجیتال */
     .screen-card {
       background: var(--display-bg); border: 1px solid var(--border);
-      border-radius: 14px; padding: 12px 14px; margin-bottom: 8px;
+      border-radius: 16px; padding: 14px 16px; margin-bottom: 10px;
       display: flex; flex-direction: column; justify-content: space-between;
-      min-height: 105px; box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+      min-height: 110px; box-shadow: var(--screen-shadow);
+      transition: background 0.25s, border-color 0.25s;
     }
     .screen-status {
       display: flex; justify-content: space-between; font-size: 11px;
       color: var(--accent); font-family: monospace; letter-spacing: 0.5px;
+      font-weight: 600;
     }
     .screen-expr {
       font-size: 14px; color: var(--text-muted); text-align: left;
       direction: ltr; min-height: 20px; overflow-x: auto; white-space: nowrap;
     }
     .screen-val {
-      font-size: 26px; font-weight: 700; color: #38bdf8; text-align: left;
+      font-size: 28px; font-weight: 700; color: var(--display-val); text-align: left;
       direction: ltr; overflow-x: auto; white-space: nowrap;
     }
 
@@ -82,19 +125,21 @@
 
     /* کیپد ماشین حساب */
     .keypad-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px;
     }
     .key-btn {
       background: var(--key-num); color: var(--text-main);
-      border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;
-      font-size: 18px; font-weight: 600; padding: 14px 0;
+      border: 1px solid var(--key-border); border-radius: 14px;
+      font-size: 18px; font-weight: 600; padding: 15px 0;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; transition: transform 0.08s, filter 0.1s;
+      box-shadow: var(--shadow-card);
     }
-    .key-btn:active { transform: scale(0.95); filter: brightness(1.25); }
-    .key-btn.op { background: var(--key-op); color: var(--primary); font-size: 16px; }
-    .key-btn.func { background: #1e293b; color: #f59e0b; font-size: 14px; }
-    .key-btn.danger { background: #450a0a; color: var(--danger); border-color: #991b1b; }
+    .key-btn:active { transform: scale(0.95); filter: brightness(1.15); }
+    .key-btn.op { background: var(--key-op); color: var(--accent); font-size: 16px; }
+    .key-btn.func { background: var(--key-func-bg); color: var(--key-func-txt); font-size: 14px; border-color: var(--border); }
+    .key-btn.danger { background: #fee2e2; color: var(--danger); border-color: #fca5a5; }
+    [data-theme="dark"] .key-btn.danger { background: #4c0519; color: var(--danger); border-color: #881337; }
     .key-btn.equal {
       background: var(--primary); color: var(--primary-txt);
       font-size: 22px; font-weight: 700;
@@ -103,39 +148,41 @@
     /* ماژول‌های مهندسی فیزیک و الکترونیک */
     .module-card {
       background: var(--card-bg); border: 1px solid var(--border);
-      border-radius: 12px; padding: 10px; margin-bottom: 6px;
-      max-height: 380px; overflow-y: auto;
+      border-radius: 16px; padding: 12px 14px; margin-bottom: 8px;
+      max-height: 400px; overflow-y: auto; box-shadow: var(--shadow-card);
     }
-    .param-group { margin-bottom: 8px; }
+    .param-group { margin-bottom: 10px; }
     .param-group label {
-      display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 3px;
+      display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 4px;
     }
-    .param-row { display: flex; gap: 6px; }
+    .param-row { display: flex; gap: 8px; align-items: center; }
     .mini-input, .mini-select {
       flex: 1; background: var(--display-bg); border: 1px solid var(--border);
-      border-radius: 8px; color: var(--text-main); padding: 8px 10px;
-      font-size: 13px; text-align: left; direction: ltr;
+      border-radius: 10px; color: var(--text-main); padding: 10px 12px;
+      font-size: 13px; text-align: left; direction: ltr; outline: none;
     }
+    .mini-input:focus, .mini-select:focus { border-color: var(--primary); }
     .calc-btn-action {
       width: 100%; background: var(--primary); color: var(--primary-txt);
-      border: none; border-radius: 10px; padding: 11px; font-size: 13px;
-      font-weight: 700; cursor: pointer; margin-top: 5px;
+      border: none; border-radius: 12px; padding: 12px; font-size: 13px;
+      font-weight: 700; cursor: pointer; margin-top: 8px; transition: filter 0.2s;
     }
+    .calc-btn-action:active { filter: brightness(1.15); }
 
     /* کدهای رنگ مقاومت */
     .color-band-preview {
-      height: 24px; border-radius: 6px; display: flex; overflow: hidden;
-      margin: 8px 0; border: 1px solid #475569;
+      height: 26px; border-radius: 8px; display: flex; overflow: hidden;
+      margin: 8px 0; border: 1px solid var(--border);
     }
     .band-slice { flex: 1; height: 100%; }
 
-    /* حل گام‌به‌گام و تاریخچه */
+    /* تاریخچه */
     .history-tape {
-      max-height: 180px; overflow-y: auto; background: var(--display-bg);
-      border: 1px solid var(--border); border-radius: 10px; padding: 6px;
+      max-height: 220px; overflow-y: auto; background: var(--display-bg);
+      border: 1px solid var(--border); border-radius: 12px; padding: 8px;
     }
     .tape-item {
-      padding: 6px; border-bottom: 1px dashed var(--border);
+      padding: 8px; border-bottom: 1px dashed var(--border);
       font-size: 12px; display: flex; justify-content: space-between; align-items: center;
     }
     .tape-item:last-child { border-bottom: none; }
@@ -147,10 +194,13 @@
   <!-- هدر -->
   <header>
     <div class="app-brand">⚡ ماشین‌حساب تخصصی مهندسی</div>
-    <div id="degree-mode" style="font-size: 11px; color: var(--primary); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px;">DEG</div>
+    <div class="header-actions">
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="تغییر حالت روز/شب">🌙</button>
+      <div id="degree-mode" style="font-size: 11px; color: var(--accent); border: 1px solid var(--border); padding: 2px 8px; border-radius: 6px; background: var(--display-bg);">DEG</div>
+    </div>
   </header>
 
-  <!-- تب‌های بخش‌بندی شده -->
+  <!-- تب‌ها -->
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('basic')">حسابگر</button>
     <button class="tab-btn" onclick="switchTab('elec')">الکترونیک</button>
@@ -159,7 +209,7 @@
     <button class="tab-btn" onclick="switchTab('hist')">تاریخچه</button>
   </div>
 
-  <!-- نمایشگر دیجیتال مهندسی -->
+  <!-- نمایشگر دیجیتال -->
   <div class="screen-card">
     <div class="screen-status">
       <span id="stat-mode">READY</span>
@@ -169,7 +219,7 @@
     <div class="screen-val" id="res-line">0</div>
   </div>
 
-  <!-- تب ۱: ماشین‌حساب علمی و مهندسی استاندارد -->
+  <!-- تب ۱: ماشین‌حساب علمی -->
   <div id="tab-basic" class="tab-content active">
     <div class="keypad-grid">
       <button class="key-btn func" onclick="execFunc('sin')">sin</button>
@@ -204,10 +254,10 @@
     </div>
   </div>
 
-  <!-- تب ۲: مهندسی الکترونیک -->
+  <!-- تب ۲: الکترونیک -->
   <div id="tab-elec" class="tab-content">
     <div class="module-card">
-      <div style="font-weight: 700; font-size: 13px; color: var(--primary); margin-bottom: 6px;">🔌 قانون اهم (V = I × R)</div>
+      <div style="font-weight: 700; font-size: 13px; color: var(--accent); margin-bottom: 6px;">🔌 قانون اهم (V = I × R)</div>
       <div class="param-row">
         <input id="ohm-v" class="mini-input" placeholder="ولتاژ V">
         <input id="ohm-i" class="mini-input" placeholder="جریان A">
@@ -215,26 +265,26 @@
       </div>
       <button class="calc-btn-action" onclick="calcOhm()">محاسبه متغیر خالی</button>
 
-      <hr style="border: 0; border-top: 1px solid var(--border); margin: 10px 0;">
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;">
 
-      <div style="font-weight: 700; font-size: 13px; color: var(--primary); margin-bottom: 6px;">⚡ مقاومت معادل (سری و موازی)</div>
+      <div style="font-weight: 700; font-size: 13px; color: var(--accent); margin-bottom: 6px;">⚡ مقاومت معادل (سری و موازی)</div>
       <div class="param-row">
-        <input id="res-r1" class="mini-input" placeholder="مقاومت R1 (Ω)">
-        <input id="res-r2" class="mini-input" placeholder="مقاومت R2 (Ω)">
+        <input id="res-r1" class="mini-input" placeholder="R1 (Ω)">
+        <input id="res-r2" class="mini-input" placeholder="R2 (Ω)">
       </div>
-      <div class="param-row" style="margin-top: 4px;">
-        <button class="calc-btn-action" style="background: #334155;" onclick="calcResistors('series')">اتصال سری</button>
-        <button class="calc-btn-action" style="background: #334155;" onclick="calcResistors('parallel')">اتصال موازی</button>
+      <div class="param-row" style="margin-top: 6px;">
+        <button class="calc-btn-action" style="background: var(--key-op); color: var(--text-main);" onclick="calcResistors('series')">سری</button>
+        <button class="calc-btn-action" style="background: var(--key-op); color: var(--text-main);" onclick="calcResistors('parallel')">موازی</button>
       </div>
 
-      <hr style="border: 0; border-top: 1px solid var(--border); margin: 10px 0;">
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;">
 
-      <div style="font-weight: 700; font-size: 13px; color: var(--primary); margin-bottom: 4px;">🎨 رمزگشای کد ۴ رنگ مقاومت</div>
+      <div style="font-weight: 700; font-size: 13px; color: var(--accent); margin-bottom: 4px;">🎨 رمزگشای کد ۴ رنگ مقاومت</div>
       <div class="color-band-preview">
-        <div id="cb-preview-1" class="band-slice" style="background: #964B00;"></div>
+        <div id="cb-preview-1" class="band-slice" style="background: #8B4513;"></div>
         <div id="cb-preview-2" class="band-slice" style="background: #000000;"></div>
-        <div id="cb-preview-3" class="band-slice" style="background: #FF0000;"></div>
-        <div id="cb-preview-4" class="band-slice" style="background: #D4AF37;"></div>
+        <div id="cb-preview-3" class="band-slice" style="background: #EF4444;"></div>
+        <div id="cb-preview-4" class="band-slice" style="background: #EAB308;"></div>
       </div>
       <div class="param-row">
         <select id="cb-1" class="mini-select" onchange="updateBandColors()"></select>
@@ -246,38 +296,38 @@
     </div>
   </div>
 
-  <!-- تب ۳: فرمول‌های فیزیک دهم -->
+  <!-- تب ۳: فیزیک دهم -->
   <div id="tab-phy" class="tab-content">
     <div class="module-card">
-      <div style="font-weight: 700; font-size: 13px; color: var(--primary); margin-bottom: 6px;">💧 چگالی (ρ = m / V)</div>
+      <div style="font-weight: 700; font-size: 13px; color: var(--accent); margin-bottom: 6px;">💧 چگالی (ρ = m / V)</div>
       <div class="param-row">
         <input id="phy-m" class="mini-input" placeholder="جرم m (kg)">
         <input id="phy-v" class="mini-input" placeholder="حجم V (m³)">
       </div>
       <button class="calc-btn-action" onclick="calcDensity()">محاسبه چگالی</button>
 
-      <hr style="border: 0; border-top: 1px solid var(--border); margin: 10px 0;">
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;">
 
-      <div style="font-weight: 700; font-size: 13px; color: var(--primary); margin-bottom: 6px;">🌊 فشار شاره در عمق (P = ρgh)</div>
+      <div style="font-weight: 700; font-size: 13px; color: var(--accent); margin-bottom: 6px;">🌊 فشار شاره در عمق (P = ρgh)</div>
       <div class="param-row">
         <input id="phy-h" class="mini-input" placeholder="عمق h (m)">
-        <input id="phy-rho" class="mini-input" placeholder="چگالی ρ" value="1000">
-        <input id="phy-g" class="mini-input" placeholder="گرانش g" value="9.8">
+        <input id="phy-rho" class="mini-input" placeholder="ρ" value="1000">
+        <input id="phy-g" class="mini-input" placeholder="g" value="9.8">
       </div>
       <button class="calc-btn-action" onclick="calcFluidPressure()">محاسبه فشار شاره (Pa)</button>
 
-      <hr style="border: 0; border-top: 1px solid var(--border); margin: 10px 0;">
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;">
 
-      <div style="font-weight: 700; font-size: 13px; color: var(--primary); margin-bottom: 6px;">🚗 تندی و سرعت متوسط (v = Δx / Δt)</div>
+      <div style="font-weight: 700; font-size: 13px; color: var(--accent); margin-bottom: 6px;">🚗 تندی متوسط (v = Δx / Δt)</div>
       <div class="param-row">
-        <input id="phy-dx" class="mini-input" placeholder="مسافت (متر)">
-        <input id="phy-dt" class="mini-input" placeholder="زمان (ثانیه)">
+        <input id="phy-dx" class="mini-input" placeholder="مسافت (m)">
+        <input id="phy-dt" class="mini-input" placeholder="زمان (s)">
       </div>
       <button class="calc-btn-action" onclick="calcSpeed()">محاسبه تندی (m/s و km/h)</button>
     </div>
   </div>
 
-  <!-- تب ۴: تبدیل واحدهای مهندسی -->
+  <!-- تب ۴: تبدیل واحد -->
   <div id="tab-conv" class="tab-content">
     <div class="module-card">
       <div class="param-group">
@@ -292,16 +342,16 @@
       <div class="param-row">
         <input id="conv-val" class="mini-input" placeholder="مقدار ورودی" value="1">
       </div>
-      <div class="param-row" style="margin-top: 6px;">
+      <div class="param-row" style="margin-top: 8px;">
         <select id="conv-from" class="mini-select"></select>
-        <div style="display:flex; align-items:center; color:var(--primary);">➔</div>
+        <div style="color: var(--accent); font-weight: bold;">➔</div>
         <select id="conv-to" class="mini-select"></select>
       </div>
       <button class="calc-btn-action" onclick="calcConversion()">انجام تبدیل واحد</button>
     </div>
   </div>
 
-  <!-- تب ۵: تاریخچه نواری محاسبات -->
+  <!-- تب ۵: تاریخچه -->
   <div id="tab-hist" class="tab-content">
     <div class="module-card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
@@ -317,7 +367,6 @@
 <script>
   'use strict';
 
-  // راه‌اندازی SDK ایتا
   const app = window.Eitaa?.WebApp;
   try {
     if (app) {
@@ -329,6 +378,32 @@
     }
   } catch(e) {}
 
+  /* ==================== THEME MANAGEMENT ==================== */
+  let currentTheme = 'dark';
+
+  function applyTheme(theme) {
+    currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    const btn = document.getElementById('theme-btn');
+    if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+
+  function toggleTheme() {
+    applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+  }
+
+  // تشخیص خودکار تم گوشی یا ایتا
+  (function initTheme() {
+    let preferred = 'dark';
+    if (app?.colorScheme) {
+      preferred = app.colorScheme;
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      preferred = 'light';
+    }
+    applyTheme(preferred);
+  })();
+
+  /* ==================== CALCULATOR LOGIC ==================== */
   let expr = '';
   let result = '0';
   let historyList = [];
@@ -350,10 +425,8 @@
     }
   }
 
-  /* توابع ماشین حساب استاندارد */
   function insertVal(v) {
     if (result !== '0' && expr === '') {
-      // اگر نتیجه قبلی هست و علامت جدید زدی ادامه بده
       if ('+-*/'.includes(v)) expr = result;
     }
     expr += v;
@@ -376,7 +449,6 @@
   function evalCalc() {
     if (!expr) return;
     try {
-      // جایگزینی امن کاراکترها و محاسبه
       const sanitized = expr.replace(/×/g, '*').replace(/÷/g, '/');
       const calcRes = Function(`'use strict'; return (${sanitized})`)();
       result = String(Number(calcRes.toFixed(6)));
@@ -392,8 +464,7 @@
 
   function execFunc(fn) {
     const cur = parseFloat(resLine.textContent) || 0;
-    let res = 0;
-    let label = '';
+    let res = 0, label = '';
 
     if (fn === 'sin') { res = Math.sin(cur * Math.PI / 180); label = `sin(${cur}°)`; }
     else if (fn === 'cos') { res = Math.cos(cur * Math.PI / 180); label = `cos(${cur}°)`; }
@@ -407,7 +478,6 @@
     addHistory(label, result);
   }
 
-  /* تاریخچه */
   function addHistory(op, res) {
     historyList.unshift({ op, res, time: new Date().toLocaleTimeString('fa-IR') });
     if (historyList.length > 20) historyList.pop();
@@ -442,7 +512,6 @@
     });
   }
 
-  /* توابع فیزیک و الکترونیک */
   function calcOhm() {
     const v = parseFloat(document.getElementById('ohm-v').value);
     const i = parseFloat(document.getElementById('ohm-i').value);
@@ -530,7 +599,6 @@
     switchTab('basic');
   }
 
-  /* نوارهای رنگی مقاومت */
   const colorData = [
     { name: 'سیاه (0)', val: 0, mult: 1, color: '#000000' },
     { name: 'قهوه‌ای (1)', val: 1, mult: 10, color: '#8B4513' },
@@ -560,7 +628,7 @@
       <option value="1">قهوه‌ای (±1%)</option>
       <option value="2">قرمز (±2%)</option>
     `;
-    b3.selectedIndex = 2; // قرمز x100 پیش‌فرض
+    b3.selectedIndex = 2;
   }
 
   function updateBandColors() {
@@ -591,7 +659,6 @@
     switchTab('basic');
   }
 
-  /* تبدیل واحدها */
   const unitTable = {
     length: { 'متر': 1, 'سانتی‌متر': 0.01, 'میلی‌متر': 0.001, 'کیلومتر': 1000, 'اینچ': 0.0254 },
     mass: { 'کیلوگرم': 1, 'گرم': 0.001, 'میلی‌گرم': 0.000001, 'تن': 1000, 'پوند': 0.453592 },
@@ -628,7 +695,6 @@
     switchTab('basic');
   }
 
-  // راه‌اندازی اولیه‌ها
   setupColorBands();
   renderConvUnits();
 </script>
